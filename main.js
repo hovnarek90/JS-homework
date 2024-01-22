@@ -228,3 +228,115 @@ function reverseArr(num) {
 console.log(reverseArr(1485979));
 console.log(reverseArr(623478));
 console.log(reverseArr(12345));
+
+// homework third
+
+// 1. Given an array of objects, group them by a specific property. For instance, given an array of people objects, group them by ‘age’.
+function groupByProperty(arr, property) {
+  const grouped = {};
+  arr.forEach((obj) => {
+    const key = obj[property];
+    if (!grouped[key]) {
+      grouped[key] = [];
+    }
+    grouped[key].push(obj);
+  });
+  return grouped;
+}
+
+const people = [
+  { name: "Alice", age: 30 },
+  { name: "Bob", age: 25 },
+  { name: "Charlie", age: 30 },
+];
+
+console.log(groupByProperty(people, "age"));
+// Output: { '25': [ { name: 'Bob', age: 25 } ], '30': [ { name: 'Alice', age: 30 }, { name: 'Charlie', age: 30 } ] }
+
+// 2. Create a function that deeply flattens an array. The function should be able to handle nested arrays of any depth.
+
+function deepFlatten(arr) {
+  const flattened = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      flattened.push(...deepFlatten(arr[i]));
+    } else {
+      flattened.push(arr[i]);
+    }
+  }
+  return flattened;
+}
+const nestedArray = [1, [2, [3, [4]], 5]];
+console.log(deepFlatten(nestedArray));
+// // Output: [1, 2, 3, 4, 5]
+// 3. Write a custom implementation of the Array.prototype.map function without using the native .map() method.
+// const numbers = [1, 2, 3];
+function customMap(arr, callback) {
+  const mapped = [];
+  for (let i = 0; i < arr.length; i++) {
+    mapped.push(callback(arr[i]));
+  }
+  return mapped;
+}
+// const doubled = customMap(numbers, num => num * 2);
+// console.log(doubled);
+// // Output: [2, 4, 6]
+// 4. Given two arrays, combine them into one array without any duplicates. Use array methods to achieve this, and consider the performance.
+function combineUnique(arr1, arr2) {
+  const combined = [...arr1, ...arr2];
+  return [...new Set(combined)];
+}
+// const array1 = [1, 2, 3];
+// const array2 = [2, 3, 4];
+// console.log(combineUnique(array1, array2));
+// // Output: [1, 2, 3, 4]
+// 5. Write a function that finds the longest string in an array of strings. Make sure it handles edge cases properly.
+function findLongestString(arr) {
+  let longest = "";
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].length > longest.length) {
+      longest = arr[i];
+    }
+  }
+  return longest;
+}
+// const strings = ["short", "medium length", "longest string"];
+// console.log(findLongestString(strings));
+// // Output: "longest string"
+// 6. Create a function that takes two arrays and returns an array of their intersection (elements that are present in both arrays).
+function arrayIntersection(arr1, arr2) {
+  const intersection = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      intersection.push(arr1[i]);
+    }
+  }
+  return intersection;
+}
+// const nums1 = [1, 2, 3, 4];
+// const nums2 = [3, 4, 5, 6];
+// console.log(arrayIntersection(nums1, nums2));
+// // Output: [3, 4]
+// 7. Write a function that splits an array into groups of a specified size. For example, chunking an array into subarrays of length 2.
+function chunkArray(arr, size) {
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
+  }
+  return chunks;
+}
+// const data = [1, 2, 3, 4, 5, 6, 7];
+// console.log(chunkArray(data, 3));
+// // Output: [[1, 2, 3], [4, 5, 6], [7]]
+// 8. Write a custom implementation of the Array.prototype.reduceRight method. This function applies a function against an accumulator and each value of the array (from right-to-left) to reduce it to a single value.
+function customReduceRight(arr, callback, initialValue) {
+  let accumulator = initialValue;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    accumulator = callback(accumulator, arr[i], i, arr);
+  }
+  return accumulator;
+}
+// const array = [1, 2, 3, 4];
+// const sum = customReduceRight(array, (acc, value) => acc + value, 0);
+// console.log(sum);
+// // Output: 10
